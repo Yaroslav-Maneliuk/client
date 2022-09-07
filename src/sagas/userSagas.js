@@ -1,9 +1,16 @@
-import {put} from "redux-saga/effects"
-import ACTION_TYPES from "../actions/actionTypes";
+import { put } from "redux-saga/effects";
+import * as API from "../api";
+import * as ActionUserCreators from "../actions/userCreators";
 
-function* createUserSaga() {
+export function* createUserSaga(action) {
   try {
-  } catch (error) {}
+    const {
+      data: { data: user },
+    } = yield API.createUser(action.payload.values);
+    yield put(ActionUserCreators.createUserSuccess({ user }));
+  } catch (error) {
+    yield put(ActionUserCreators.createUserError({ error }));
+  }
 }
 
-export default createUserSaga;
+
