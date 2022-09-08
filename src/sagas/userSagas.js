@@ -5,7 +5,7 @@ import * as ActionUserCreators from "../actions/userCreators";
 export function* createUserSaga(action) {
   try {
     const {
-      data: { data: user },
+      data: { data: [user] },
     } = yield API.createUser(action.payload.values);
     yield put(ActionUserCreators.createUserSuccess({ user }));
   } catch (error) {
